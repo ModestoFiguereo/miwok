@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.miwok;
+package com.example.android.miwok.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +21,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
+
+import com.example.android.miwok.R;
+import com.example.android.miwok.listeners.NumbersTextViewOnClickEventLIstener;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,17 +38,7 @@ public class MainActivity extends AppCompatActivity {
         TextView numbers = (TextView) findViewById(R.id.numbers);
 
         // Set a click listener on that View
-        numbers.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the numbers category is clicked on.
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to open the {@link NumbersActivity}
-                Intent numbersIntent = new Intent(MainActivity.this, NumbersActivity.class);
-
-                // Start the new activity
-                startActivity(numbersIntent);
-            }
-        });
+        numbers.setOnClickListener(new NumbersTextViewOnClickEventLIstener());
 
         // Find the View that shows the family category
         TextView family = (TextView) findViewById(R.id.family);
