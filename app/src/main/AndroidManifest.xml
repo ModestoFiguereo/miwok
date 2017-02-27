@@ -23,7 +23,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.MainActivity">
+        <activity android:name="com.example.android.miwok.ui.activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,40 +31,40 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.NumbersActivity"
+            android:name="com.example.android.miwok.ui.activities.NumbersActivity"
             android:label="@string/category_numbers"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.example.android.miwok.ui.activities.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
+                android:value="com.example.android.miwok.ui.activities.MainActivity"/>
         </activity>
         <activity
-            android:name=".activities.FamilyActivity"
+            android:name="com.example.android.miwok.ui.activities.FamilyActivity"
             android:label="@string/category_family"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.example.android.miwok.ui.activities.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
+                android:value="com.example.android.miwok.ui.activities.MainActivity"/>
         </activity>
         <activity
-            android:name=".activities.ColorsActivity"
+            android:name="com.example.android.miwok.ui.activities.ColorsActivity"
             android:label="@string/category_colors"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.example.android.miwok.ui.activities.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
+                android:value="com.example.android.miwok.ui.activities.MainActivity"/>
         </activity>
         <activity
-            android:name=".activities.PhrasesActivity"
+            android:name="com.example.android.miwok.ui.activities.PhrasesActivity"
             android:label="@string/category_phrases"
-            android:parentActivityName=".activities.MainActivity">
+            android:parentActivityName="com.example.android.miwok.ui.activities.MainActivity">
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.MainActivity"/>
+                android:value="com.example.android.miwok.ui.activities.MainActivity"/>
         </activity>
     </application>
 
