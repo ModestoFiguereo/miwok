@@ -15,18 +15,28 @@
  */
 package com.example.android.miwok.ui.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
+import android.text.SpannableString;
 
 import com.example.android.miwok.R;
-import com.example.android.miwok.ui.activities.PhrasesActivity;
-import com.example.android.miwok.ui.listeners.NumbersTextViewOnClickEventLIstener;
+import com.example.android.miwok.ui.fragments.ColorsFragment;
+import com.example.android.miwok.ui.fragments.FamilyFragment;
+import com.example.android.miwok.ui.fragments.NumbersFragment;
+import com.example.android.miwok.ui.fragments.PhrasesFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private final int NUMBERS_POSITION = 0;
+    private final int FAMILY_POSITION = 1;
+    private final int COLORS_POSITION = 2;
+    private final int PHRASES_POSITION = 3;
+
+    ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,58 +45,98 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
-        // Find the View that shows the numbers category
-        TextView numbers = (TextView) findViewById(R.id.numbers);
+        viewPager = (ViewPager) findViewById(R.id.miwok_pager);
+        /** set the adapter for ViewPager */
+        viewPager.setAdapter(new MiwokPagerAdapter(
+                getSupportFragmentManager()));
 
-        // Set a click listener on that View
-        numbers.setOnClickListener(new NumbersTextViewOnClickEventLIstener());
-
-        // Find the View that shows the family category
-        TextView family = (TextView) findViewById(R.id.family);
-
-        // Set a click listener on that View
-        family.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the family category is clicked on.
+        // Give the TabLayout the ViewPager
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View view) {
-                // Create a new intent to open the {@link FamilyActivity}
-                Intent familyIntent = new Intent(MainActivity.this, FamilyActivity.class);
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+                switch (position) {
+                    case NUMBERS_POSITION:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_numbers));
+                        tabLayout.setTabTextColors(getResources().getColor(R.color.primary_dark_color), getResources().getColor(R.color.category_numbers));
+                        break;
+                    case FAMILY_POSITION:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_family));
+                        tabLayout.setTabTextColors(getResources().getColor(R.color.primary_dark_color), getResources().getColor(R.color.category_family));
+                        break;
+                    case COLORS_POSITION:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_colors));
+                        tabLayout.setTabTextColors(getResources().getColor(R.color.primary_dark_color), getResources().getColor(R.color.category_colors));
+                        break;
+                    case PHRASES_POSITION:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_phrases));
+                        tabLayout.setTabTextColors(getResources().getColor(R.color.primary_dark_color), getResources().getColor(R.color.category_phrases));
+                        break;
+                    default:
+                        tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_numbers));
+                        tabLayout.setTabTextColors(getResources().getColor(R.color.primary_dark_color), getResources().getColor(R.color.category_numbers));
+                        break;
+                }
+            }
 
-                // Start the new activity
-                startActivity(familyIntent);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
 
-        // Find the View that shows the colors category
-        TextView colors = (TextView) findViewById(R.id.colors);
+    }
 
-        // Set a click listener on that View
-        colors.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the colors category is clicked on.
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to open the {@link ColorsActivity}
-                Intent colorsIntent = new Intent(MainActivity.this, ColorsActivity.class);
+    public class MiwokPagerAdapter extends FragmentPagerAdapter {
 
-                // Start the new activity
-                startActivity(colorsIntent);
+        public MiwokPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            /** Show a Fragment based on the position of the current screen */
+            switch (position) {
+                case NUMBERS_POSITION:
+                    return new NumbersFragment();
+                case FAMILY_POSITION:
+                    return new FamilyFragment();
+                case COLORS_POSITION:
+                    return new ColorsFragment();
+                case PHRASES_POSITION:
+                    return new PhrasesFragment();
+                default:
+                    return new NumbersFragment();
             }
-        });
+        }
 
-        // Find the View that shows the phrases category
-        TextView phrases = (TextView) findViewById(R.id.phrases);
-
-        // Set a click listener on that View
-        phrases.setOnClickListener(new OnClickListener() {
-            // The code in this method will be executed when the phrases category is clicked on.
-            @Override
-            public void onClick(View view) {
-                // Create a new intent to open the {@link PhrasesActivity}
-                Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
-
-                // Start the new activity
-                startActivity(phrasesIntent);
+        @Override
+        public CharSequence getPageTitle(int position) {
+            switch (position) {
+                case NUMBERS_POSITION:
+                    return new SpannableString(getString(R.string.category_numbers));
+                case FAMILY_POSITION:
+                    return new SpannableString(getString(R.string.category_family));
+                case COLORS_POSITION:
+                    return new SpannableString(getString(R.string.category_colors));
+                case PHRASES_POSITION:
+                    return new SpannableString(getString(R.string.category_phrases));
+                default:
+                    return new SpannableString(getString(R.string.category_numbers));
             }
-        });
+        }
+
+        @Override
+        public int getCount() {
+            // Show 2 total pages.
+            return 4;
+        }
     }
 }
